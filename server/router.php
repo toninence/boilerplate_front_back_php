@@ -1,0 +1,21 @@
+<?php
+function router($method, $url, $closure) {
+	$route = $_SERVER['REQUEST_URI'];
+    $route = str_replace("proyectos/7mo/boilerplate_front_back/server/", "", $route);
+	if (strpos($route, '?')) {
+		$route = strstr($route, '?', true);
+	}
+	$urlRule = preg_replace('/:([^\/]+)/', '(?<\1>[^/]+)', $url);
+	$urlRule = str_replace('/', '\/', $urlRule);
+
+	preg_match_all('/:([^\/]+)/', $url, $parameterNames);
+
+    if($method === $_SERVER['REQUEST_METHOD']) {
+        if (preg_match('/^' . $urlRule . '\/*$/s', $route, $matches)) {
+    
+            $parameters = array_intersect_key($matches, array_flip($parameterNames[1]));
+            call_user_func_array($closure, $parameters);
+        }
+
+    }
+}
