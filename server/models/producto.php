@@ -12,6 +12,7 @@ function mostrar_producto($id) {
 }
 //Modificar seria nuestro UPDATE
 function modificar_producto($datos) {
+    //Aca lo unico que se hace es crear un obj con la info que viene y se reeenvia. pero deberan crear una consulta a la base de datos, enviar esta informacion y modificar el registro. y al terminar enviar como  respuesta (return) el mensaje de ok o el mensaje de error
     $producto = new stdClass();
     $producto->id = $datos->id;
     $producto->nombre = $datos->nombre;
